@@ -1,0 +1,49 @@
+name: JAVA CI with Maven
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs: 
+  build:
+    name: Build and Test
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Checkout repository 
+        uses: actions/checkout@v7
+      - name: Set up JDK 21
+        uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+      - name: Verify with Maven
+        run: mvn -B clean verify --file pom.xml
+      - name: Checkout LiquidJava
+        uses: actions/checkout@v7
+        with:
+          repository: liquid-java/liquidjava
+          ref: e3b11c8284e7ecff4ffe9504ba0cf2e0ff07eabc
+          path: .ci/liquidjava
+      - name: Verify refinements with LiquidJava
+        shell: bash
+        working-directory: .ci/liquidjava
+        run: |
+          mvn -B -pl liquidjava-verifier -am -DskipTests package
+
+          java -jar liquidjava-verifier/target/liquidjava-verifier-0.0.38.jar \
+            "$GITHUB_WORKSPACE/src/main/java" 2>&1 | tee liquidjava.log
+
+          if ! grep -Fxq 'Correct! Passed Verification.' liquidjava.log; then
+            echo "::error::O LiquidJava não confirmou que a verificação passou."
+            exit 1
+          fi 
+
+
+
+
