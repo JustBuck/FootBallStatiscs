@@ -2,7 +2,7 @@
 
 API REST desenvolvida em **Java** com **Spring Boot** para consulta, processamento e análise de estatísticas de futebol. 
 
-Este projeto é desenvolvido com o auxílio de agentes de Inteligência Artificial (guiados por regras definidas em `CODEX.md`), assegurando a qualidade, fiabilidade e segurança do código através de pipelines rigorosos de testes automatizados, *pre-commit hooks* e análise estática com **LiquidJava**.
+Este projeto é desenvolvido com o auxílio de agentes de Inteligência Artificial (guiados por regras definidas em `AGENTS.md`), assegurando a qualidade, fiabilidade e segurança do código através de pipelines rigorosos de testes automatizados, *pre-commit hooks* e análise estática com **LiquidJava**.
 
 ---
 
@@ -15,7 +15,7 @@ Este projeto é desenvolvido com o auxílio de agentes de Inteligência Artifici
 * **Análise Estática e Verificação:** LiquidJava (Refinement Types)
 * **Controlo de Qualidade:** Pre-commit hooks
 * **Containerização:** Docker (ambiente Linux)
-* **Desenvolvimento Assistido por IA:** Codex (`CODEX.md`)
+* **Desenvolvimento Assistido por IA:** Codex (`AGENTS.md`)
 
 ---
 
